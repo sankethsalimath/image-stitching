@@ -1,11 +1,21 @@
 """
 Image stitching using BRISK algorithm and knn Matching based on feature mapping
+Use it as:
+python video_stitching.py -v1 [video file 1 path] -v2 [video file 2 path]
 """
 import cv2
 import numpy as np
+from optparse import OptionParser
 
-video_file1 = "left_vid.mp4"
-video_file2 = "right_vid.mp4"
+parser = OptionParser()
+
+parser.add_option("-v1", "--path1", dest="v_file1", help="Path to Video 1.")
+parser.add_option("-v2", "--path2", dest="v_file2", help="Path to Video 2.")
+
+(options, args) = parser.parse_args()
+
+video_file1 = options.v_file1
+video_file2 = options.v_file2
 
 descriptor = cv2.BRISK_create()
 bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=False)
